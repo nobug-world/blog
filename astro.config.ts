@@ -24,6 +24,11 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  // 修改为你的自定义域名
+  site: 'https://blog.nobug.world',
+  // 使用自定义域名时，base 设置为 '/'
+  base: '/',
+
   integrations: [
     tailwind({
       applyBaseStyles: false,

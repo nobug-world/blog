@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  # 每次推送到 master 分支时触发
+  push:
+    branches: [ master ]
+  # 允许手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      
+      - name: Install, build, and upload your site
+        uses: withastro/action@v2
+        with:
+          # path: . # 可选：如果项目不在根目录，请修改此处
+          # node-version: 20 # 可选：指定 Node.js 版本，默认使用项目定义或最新版
+          package-manager: npm # 推荐：显式指定包管理器，避免自动检测错误
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
