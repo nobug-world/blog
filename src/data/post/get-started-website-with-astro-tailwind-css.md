@@ -1,4 +1,5 @@
 ---
+draft: true
 publishDate: 2023-08-12T00:00:00Z
 author: John Smith
 title: Get started with AstroWind to create a website using Astro and Tailwind CSS

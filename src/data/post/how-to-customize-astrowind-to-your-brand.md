@@ -1,4 +1,5 @@
 ---
+draft: true
 publishDate: 2023-08-06T00:00:00Z
 title: How to customize AstroWind template to suit your branding
 excerpt: Personalize AstroWind template for your brand. Our guide unlocks seamless customization steps for a unique online presence.

@@ -1,4 +1,5 @@
 ---
+draft: true
 publishDate: 2023-07-15T00:00:00Z
 title: 'Mastering Landing Pages: Practical Guide for 2023'
 excerpt: Ever clicked on an ad and found yourself on a page that seemed to really want you to do something? Congratulations, you've landed on a Landing Page!
