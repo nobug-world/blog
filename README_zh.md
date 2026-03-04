@@ -1,50 +1,13 @@
-# 🚀 AstroWind
-
-<img src="https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
-
-🌟 _2022、2023 和 2024 年最受欢迎（Star 和 Fork 数最多）的 Astro 主题_。 🌟
-
-**AstroWind** 是一个免费开源的模板，用于使用 **[Astro 5.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)** 制作您的网站。专为新项目设计，并充分考虑了网络最佳实践。
-
-- ✅ **PageSpeed Insights** 报告中达到 **生产级** 分数。
-- ✅ 集成 **Tailwind CSS**，支持 **深色模式** 和 **_RTL_**。
-- ✅ **快速且 SEO 友好的博客**，具有自动 **RSS 订阅**、**MDX** 支持、**分类与标签**、**社交分享**等功能...
-- ✅ **图像优化**（使用新的 **Astro Assets** 和 **Unpic** 通用图像 CDN）。
-- ✅ 基于路由生成 **项目站点地图**。
-- ✅ 用于社交媒体分享的 **Open Graph 标签**。
-- ✅ 内置 **分析**，集成 Google Analytics 和 Splitbee。
-
-<br>
-
-![AstroWind 主题截图](https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/screenshot-astrowind-1.0.png)
-
-[![arthelokyo](https://custom-icon-badges.demolab.com/badge/made%20by%20-arthelokyo-556bf2?style=flat-square&logo=arthelokyo&logoColor=white&labelColor=101827)](https://github.com/arthelokyo)
-[![License](https://img.shields.io/github/license/arthelokyo/astrowind?style=flat-square&color=dddddd&labelColor=000000)](https://github.com/arthelokyo/astrowind/blob/main/LICENSE.md)
-[![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo/astrowind#contributing)
-[![Known Vulnerabilities](https://snyk.io/test/github/arthelokyo/astrowind/badge.svg?style=flat-square)](https://snyk.io/test/github/arthelokyo/astrowind)
-[![Stars](https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-[![Forks](https://img.shields.io/github/forks/arthelokyo/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-
-<br>
-
 <details open>
 <summary>目录</summary>
 
 - [演示](#演示)
-- [即将推出：AstroWind 2.0 – 我们需要您的愿景！](#-即将推出astrowind-20--我们需要您的愿景)
 - [简而言之](#简而言之)
 - [快速开始](#快速开始)
   - [项目结构](#项目结构)
   - [命令](#命令)
   - [配置](#配置)
-  - [部署](#部署)
-- [常见问题](#常见问题)
-- [相关项目](#相关项目)
-- [贡献](#贡献)
-- [致谢](#致谢)
-- [许可证](#许可证)
+  - [添加新文章并部署](#添加新文章并部署)
 
 </details>
 
@@ -56,13 +19,6 @@
 
 <br>
 
-## 🔔 即将推出：AstroWind 2.0 – 我们需要您的愿景！
-
-我们正在开启 **AstroWind 2.0** 的激动人心的旅程，我们希望您能参与其中！我们目前正在迈出开发这个新版本的第一步，您的见解是非常宝贵的。加入讨论，分享您的反馈、想法和建议，帮助塑造 **AstroWind** 的未来。让我们一起让 **AstroWind 2.0** 变得更好！
-
-[在我们的讨论中分享您的反馈！](https://github.com/arthelokyo/astrowind/discussions/392)
-
-<br>
 
 ## 简而言之
 
@@ -247,54 +203,44 @@ ui:
 - `src/components/CustomStyles.astro`
 - `src/assets/styles/tailwind.css`
 
-### 部署
+### 添加新文章并部署
 
-#### 部署到生产环境（手动）
+在使用 GitHub Pages 的自动化部署工作流后，添加新文章并发布非常简单：
 
-您可以使用以下命令创建优化的生产构建：
+**1. 创建文章文件**
 
-```shell
-npm run build
+所有的博客文章都存放在 **`src/data/post/`** 目录下（支持 `.md` 或 `.mdx` 格式）。创建一个新的文件（例如 `my-first-post.md`），并在开头添加 Frontmatter 元数据：
+
+```markdown
+---
+publishDate: 2024-03-01T00:00:00Z
+title: '我的新文章标题'
+excerpt: '这是文章的摘要，会显示在博客列表中。'
+image: '~/assets/images/default.png' # 可选：封面图
+category: '随笔' # 可选：文章分类
+tags:
+  - astro
+  - blog
+---
+
+这里是文章的正文内容...
 ```
 
-现在，您的网站已准备好部署。所有生成的文件都位于 `dist` 文件夹中，您可以将该文件夹部署到您喜欢的任何托管服务。
+**2. 提交并推送到 GitHub**
 
-#### 部署到 Netlify
+项目已经配置了 GitHub Actions（如 `.github/workflows/deploy.yaml`），只要将更改推送到代码仓库主分支（如 `master` 分支），GitHub Pages 就会自动触发构建和上线流程：
 
-将此存储库克隆到您自己的 GitHub 帐户并部署到 Netlify：
+```shell
+# 1. 暂存新文章（如果有多处修改可以根据需要添加）
+git add src/data/post/my-first-post.md
 
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/arthelokyo/astrowind)
+# 2. 提交修改
+git commit -m "blog: 添加了一篇新文章"
 
-#### 部署到 Vercel
+# 3. 推送到 GitHub
+git push origin master
+```
 
-将此存储库克隆到您自己的 GitHub 帐户并部署到 Vercel：
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farthelokyo%2Fastrowind)
-
-<br>
-
-## 常见问题
-
-- 为什么？
--
--
+推送完成后，稍等片刻，GitHub Actions 会动执行部署工作流并完成网站更新，您的新文章即会自动在博客上发布。
 
 <br>
-
-## 相关项目
-
-- [TailNext](https://tailnext.vercel.app/) - 使用 Next.js 14 和 Tailwind CSS 以及新 App Router 的免费模板。
-- [Qwind](https://qwind.pages.dev/) - 使用 Qwik + Tailwind CSS 制作网站的免费模板。
-
-## 贡献
-
-如果您有任何想法、建议或发现任何错误，请随时开启讨论、提出 issue 或创建 pull request。
-这对我们所有人都非常有用，我们很乐意倾听并采取行动。
-
-## 致谢
-
-最初由 **Arthelokyo** 创建，并由 [贡献者](https://github.com/arthelokyo/astrowind/graphs/contributors) 社区维护。
-
-## 许可证
-
-**AstroWind** 根据 MIT 许可证授权 — 详情请参阅 [LICENSE](./LICENSE.md) 文件。

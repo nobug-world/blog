@@ -1,5 +1,6 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { HTMLAttributes, ImageMetadata } from 'astro/types';
+import type { MarkdownHeading } from 'astro';
 
 export interface Post {
   /** A unique ID number that identifies a post. */
@@ -39,9 +40,12 @@ export interface Post {
   /**  */
   Content?: AstroComponentFactory;
   content?: string;
+  rawContent?: string;
 
   /**  */
   readingTime?: number;
+
+  headings?: MarkdownHeading[];
 }
 
 export interface Taxonomy {
@@ -278,4 +282,4 @@ export interface Content extends Omit<Headline, 'classes'>, Widget {
   callToAction?: CallToAction;
 }
 
-export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
+export interface Contact extends Omit<Headline, 'classes'>, Form, Widget { }

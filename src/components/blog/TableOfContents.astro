@@ -1,0 +1,67 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+export interface Props {
+  headings?: MarkdownHeading[];
+  class?: string;
+  isDesktop?: boolean;
+}
+
+const { headings, class: className = '', isDesktop = false } = Astro.props;
+
+if (!headings || headings.length === 0) {
+  return null;
+}
+
+// Filter to keep only heading levels 1 to 3, maybe? No, let's keep all or up to h4.
+const filteredHeadings = headings.filter((heading) => heading.depth <= 3);
+---
+
+<details
+  class={`toc mb-8 bg-gray-50 dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 px-4 py-3 ${className}`}
+  open={true}
+>
+  <summary class="cursor-pointer font-bold text-lg select-none flex items-center justify-between">
+    目录 (Table of Contents)
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-5 h-5 transition-transform duration-200 transform group-open:rotate-180"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </summary>
+  <nav class="mt-4 overflow-y-auto max-h-[calc(100vh-12rem)]">
+    <ul class="space-y-2 text-sm">
+      {
+        filteredHeadings.map((heading) => (
+          <li style={`margin-left: ${(heading.depth - 1) * 1}rem`}>
+            <a
+              href={`#${heading.slug}`}
+              class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200 block truncate"
+              title={heading.text}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</details>
+
+<style>
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] summary svg {
+    transform: rotate(180deg);
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Item from '~/components/blog/ListItem.astro';
 import type { Post } from '~/types';
+import { Icon } from 'astro-icon/components';
 
 export interface Props {
   posts: Array<Post>;
@@ -9,12 +10,109 @@ export interface Props {
 const { posts } = Astro.props;
 ---
 
-<ul>
+<div class="mb-8 md:mb-12">
+  <div class="relative max-w-3xl mx-auto">
+    <Icon name="tabler:search" class="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+    <input
+      type="text"
+      id="blog-search-input"
+      placeholder="搜索文章名称或探索内容..."
+      class="w-full pl-14 pr-6 py-4 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-transparent focus:outline-none focus:border-blue-500 transition-colors dark:text-slate-200"
+    />
+  </div>
+</div>
+
+<ul id="default-blog-list">
   {
     posts.map((post) => (
-      <li class="mb-12 md:mb-20">
+      <li class="mb-6 md:mb-8">
         <Item post={post} />
       </li>
     ))
   }
 </ul>
+
+<ul id="search-results-container" class="hidden flex-col"></ul>
+
+<script>
+  let ALL_POSTS: any[] = [];
+  let isFetching = false;
+
+  const searchInput = document.getElementById('blog-search-input') as HTMLInputElement | null;
+  const searchResults = document.getElementById('search-results-container');
+  const defaultList = document.getElementById('default-blog-list');
+
+  searchInput?.addEventListener('input', async (e) => {
+    const query = (e.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (!query) {
+      searchResults?.classList.add('hidden');
+      searchResults?.classList.remove('flex');
+      if (defaultList) defaultList.style.display = 'block';
+      return;
+    }
+
+    if (ALL_POSTS.length === 0 && !isFetching) {
+      isFetching = true;
+      try {
+        const res = await fetch('/api/search.json');
+        ALL_POSTS = await res.json();
+      } catch (err) {
+        console.error('Failed to fetch search index:', err);
+      }
+      isFetching = false;
+    }
+
+    if (ALL_POSTS.length === 0) return;
+
+    const filtered = ALL_POSTS.filter(
+      (p) =>
+        p.title.toLowerCase().includes(query) ||
+        (p.excerpt && p.excerpt.toLowerCase().includes(query)) ||
+        (p.content && p.content.toLowerCase().includes(query))
+    );
+
+    if (searchResults) {
+      searchResults.innerHTML = filtered
+        .map(
+          (post) => `
+        <li class="mb-6 md:mb-8">
+          <article class="max-w-md mx-auto md:max-w-none flex flex-col md:flex-row gap-6 md:gap-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 items-start transition-all hover:bg-slate-50 dark:hover:bg-slate-800/20">
+            ${
+              post.image
+                ? `
+              <a class="relative block group md:w-1/3 lg:w-1/4 flex-shrink-0" href="${post.permalink}">
+                <div class="relative overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg aspect-[16/9]">
+                  <img src="${post.image}" class="absolute inset-0 object-cover w-full h-full rounded shadow-lg bg-gray-400 dark:bg-slate-700" alt="${post.title}" loading="lazy" />
+                </div>
+              </a>
+            `
+                : ''
+            }
+            <div class="flex-1">
+              <header>
+                <div class="mb-1">
+                  <span class="text-sm">
+                    <time datetime="${post.publishDate}" class="inline-block">${new Date(post.publishDate).toLocaleDateString()}</time>
+                  </span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading dark:text-slate-300">
+                  <a class="inline-block hover:text-primary dark:hover:text-blue-700 transition ease-in duration-200" href="${post.permalink}">
+                    ${post.title}
+                  </a>
+                </h2>
+              </header>
+              ${post.excerpt ? `<p class="flex-grow text-muted dark:text-slate-400 text-lg">${post.excerpt}</p>` : ''}
+            </div>
+          </article>
+        </li>
+      `
+        )
+        .join('');
+
+      searchResults.classList.remove('hidden');
+      searchResults.classList.add('flex');
+    }
+    if (defaultList) defaultList.style.display = 'none';
+  });
+</script>

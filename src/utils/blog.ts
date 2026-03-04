@@ -42,7 +42,7 @@ const generatePermalink = async ({
 
 const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> => {
   const { id, data } = post;
-  const { Content, remarkPluginFrontmatter } = await render(post);
+  const { Content, remarkPluginFrontmatter, headings } = await render(post);
 
   const {
     publishDate: rawPublishDate = new Date(),
@@ -63,9 +63,9 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
 
   const category = rawCategory
     ? {
-        slug: cleanSlug(rawCategory),
-        title: rawCategory,
-      }
+      slug: cleanSlug(rawCategory),
+      title: rawCategory,
+    }
     : undefined;
 
   const tags = rawTags.map((tag: string) => ({
@@ -94,9 +94,11 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     metadata,
 
     Content: Content,
+    rawContent: post.body,
     // or 'content' in case you consume from API
 
     readingTime: remarkPluginFrontmatter?.readingTime,
+    headings: headings,
   };
 };
 

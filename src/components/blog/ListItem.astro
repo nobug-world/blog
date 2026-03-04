@@ -22,13 +22,15 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
 ---
 
 <article
-  class={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade ${image ? 'md:grid-cols-2' : ''}`}
+  class="max-w-md mx-auto md:max-w-none flex flex-col md:flex-row gap-6 md:gap-8 intersect-once intersect-quarter
+motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade border border-dashed border-slate-200
+dark:border-slate-800 rounded-2xl p-6 sm:p-8 items-start transition-all hover:bg-slate-50 dark:hover:bg-slate-800/20"
 >
   {
     image &&
       (link ? (
-        <a class="relative block group" href={link ?? 'javascript:void(0)'}>
-          <div class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+        <a class="relative block group md:w-1/3 lg:w-1/4 flex-shrink-0" href={link ?? 'javascript:void(0)'}>
+          <div class="relative overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg aspect-[16/9]">
             {image && (
               <Image
                 src={image}
@@ -45,7 +47,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
           </div>
         </a>
       ) : (
-        <div class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+        <div class="relative overflow-hidden md:w-1/3 lg:w-1/4 flex-shrink-0 bg-gray-400 dark:bg-slate-700 rounded shadow-lg aspect-[16/9]">
           {image && (
             <Image
               src={image}
@@ -62,7 +64,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
         </div>
       ))
   }
-  <div class="mt-2">
+  <div class="flex-1">
     <header>
       <div class="mb-1">
         <span class="text-sm">
