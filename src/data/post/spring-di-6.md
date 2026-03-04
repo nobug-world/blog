@@ -1,7 +1,7 @@
 ---
 publishDate: 2024-08-21T00:00:00Z
 title: 'TDD 实现 Spring DI 容器 (六) - Qualifier 支持'
-excerpt: '本文介绍了如何使用 TDD 的方式实现一个简单的 Spring DI 容器，包含注入点的支持、组件的构造、依赖的选择以及生命周期控制。'
+excerpt: '本文在基础的按类型注入之上，集成了 Qualifier (限定符) 和默认 Named 注解支持，通过重构组件标识体系使其能够精准匹配同类型下的各种不同实现。'
 category: 'TDD'
 tags:
   - TDD

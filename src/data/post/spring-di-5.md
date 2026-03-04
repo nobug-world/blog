@@ -1,7 +1,7 @@
 ---
 publishDate: 2024-08-21T00:00:00Z
 title: 'TDD 实现 Spring DI 容器 (五) - Provider 依赖注入'
-excerpt: '本文介绍了如何使用 TDD 的方式实现一个简单的 Spring DI 容器，包含注入点的支持、组件的构造、依赖的选择以及生命周期控制。'
+excerpt: '本文围绕 JSR-330 规范引入了对 Provider 类型的注入支持，允许在使用时按需提供组件实例，并解决了泛型注入和自定义限定符依赖等高级场景的扩展基础。'
 category: 'TDD'
 tags:
   - TDD

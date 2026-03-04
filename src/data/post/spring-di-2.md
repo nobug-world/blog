@@ -1,7 +1,7 @@
 ---
 publishDate: 2024-08-21T00:00:00Z
 title: 'TDD 实现 Spring DI 容器 (二) - 依赖检查提取'
-excerpt: '本文介绍了如何使用 TDD 的方式实现一个简单的 Spring DI 容器，包含注入点的支持、组件的构造、依赖的选择以及生命周期控制。'
+excerpt: '本文聚焦容器依赖构建过程中的 Sad Path 处理，详细演示了将依赖缺失与循环依赖等检查逻辑抽离至容器构建阶段，彻底重构了内部的依赖获取与上下文构建链路。'
 category: 'TDD'
 tags:
   - TDD
