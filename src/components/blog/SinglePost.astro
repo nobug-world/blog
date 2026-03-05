@@ -163,4 +163,28 @@ const { post, url } = Astro.props;
 
   initCopyButtons();
   document.addEventListener('astro:page-load', initCopyButtons);
+
+  document.addEventListener('copy', (e) => {
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+
+    let container = selection.getRangeAt(0).commonAncestorContainer as Node;
+    if (container.nodeType === 3 && container.parentNode) {
+      container = container.parentNode;
+    }
+    const element = container as Element;
+    const pre = element.closest ? element.closest('pre') : null;
+
+    if (pre) {
+      let text = selection.toString();
+      const lines = text.split('\n');
+      // 检查是否有行号
+      const hasLineNumbers = lines.length > 0 && lines.some((line) => /^\s*\d+(?:\s+|$)/.test(line));
+      if (hasLineNumbers) {
+        text = lines.map((line) => line.replace(/^\s*\d+(?:\s+|$)/, '')).join('\n');
+        e.clipboardData?.setData('text/plain', text);
+        e.preventDefault();
+      }
+    }
+  });
 </script>

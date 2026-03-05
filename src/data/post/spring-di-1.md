@@ -1,5 +1,5 @@
 ---
-publishDate: 2024-08-21T00:00:00Z
+publishDate: 2024-08-21T07:00:00Z
 title: 'TDD 实现 Spring DI 容器 (一) - 基础功能与实例构造'
 excerpt: '本文介绍了 TDD 实现 Spring DI 容器的背景和需求分析，进行功能任务分解，并搭建测试环境，带领大家通过红绿重构循环实现基础的组件注册与实例构造机制。'
 category: 'TDD'

@@ -1,5 +1,5 @@
 ---
-publishDate: 2024-08-21T00:00:00Z
+publishDate: 2024-08-21T01:00:00Z
 title: 'TDD 实现 Spring DI 容器 (七) - 生命周期管理'
 excerpt: '本文探讨了对组件生命周期的支持，解决了 Singleton 的并发安全问题。同时为容器引入了完整的自定义 Scope 作用域扩展接口，圆满达成了兼容 JSR-330 规范的目标。'
 category: 'TDD'

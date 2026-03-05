@@ -1,5 +1,5 @@
 ---
-publishDate: 2024-08-21T00:00:00Z
+publishDate: 2024-08-21T02:00:00Z
 title: 'TDD 实现 Spring DI 容器 (六) - Qualifier 支持'
 excerpt: '本文在基础的按类型注入之上，集成了 Qualifier (限定符) 和默认 Named 注解支持，通过重构组件标识体系使其能够精准匹配同类型下的各种不同实现。'
 category: 'TDD'
